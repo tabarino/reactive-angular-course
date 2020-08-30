@@ -33,6 +33,7 @@ import { MessagesComponent } from './messages/messages.component';
 import { SearchLessonsComponent } from './search-lessons/search-lessons.component';
 import { LoadingComponent } from './loading/loading.component';
 import { CourseCardListComponent } from './course-card-list/course-card-list.component';
+import { LOCALE_ID } from '@angular/core';
 
 @NgModule({
     declarations: [
@@ -74,7 +75,9 @@ import { CourseCardListComponent } from './course-card-list/course-card-list.com
         MatMomentDateModule,
         ReactiveFormsModule
     ],
-    providers: [],
+    providers: [
+        { provide: LOCALE_ID, useValue: 'en-GB' }
+    ],
     bootstrap: [AppComponent],
     entryComponents: [CourseDialogComponent]
 })
