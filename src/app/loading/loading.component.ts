@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { LoadingService } from '../services/loading.service';
-import { Observable } from 'rxjs';
 
 @Component({
     selector: 'loading',
@@ -12,15 +11,5 @@ export class LoadingComponent implements OnInit {
     }
 
     ngOnInit() {
-    }
-
-    showLoaderUntilCompleted<T>(obs$: Observable<T>): Observable<T> {
-        return undefined;
-    }
-
-    loadingOn() {
-    }
-
-    loadingOff() {
     }
 }
