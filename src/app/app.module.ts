@@ -49,7 +49,6 @@ import { LOCALE_ID } from '@angular/core';
         SearchLessonsComponent,
         LoadingComponent,
         CourseCardListComponent
-
     ],
     imports: [
         BrowserModule,
