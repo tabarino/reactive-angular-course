@@ -1,16 +1,34 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { Course, sortCoursesBySeqNo } from '../model/course';
-import { map } from 'rxjs/operators';
+import { catchError, map, tap } from 'rxjs/operators';
+import { CoursesService } from '../services/courses.service';
+import { LoadingService } from '../services/loading.service';
+import { MessagesService } from '../services/messages.service';
 
 @Injectable({
     providedIn: 'root'
 })
-// @ts-ignore
 export class CoursesStore {
-    courses$: Observable<Course[]>;
+    private coursesSubject = new BehaviorSubject<Course[]>([]);
+    courses$: Observable<Course[]> = this.coursesSubject.asObservable();
 
-    constructor() {
+    constructor(
+        private coursesService: CoursesService,
+        private loadingService: LoadingService,
+        private messagesService: MessagesService
+    ) {
+        const loadCourses$ = this.coursesService.loadAllCourses().pipe(
+            catchError(err => {
+                const errMessage = 'Could not load courses';
+                this.messagesService.showErrors(errMessage);
+                console.error(errMessage, err);
+                return throwError(err);
+            }),
+            tap(courses => this.coursesSubject.next(courses))
+        );
+
+        this.loadingService.showLoaderUntilCompleted(loadCourses$).subscribe();
     }
 
     filterByCategory(category: string): Observable<Course[]> {

@@ -34,6 +34,8 @@ import { SearchLessonsComponent } from './search-lessons/search-lessons.componen
 import { LoadingComponent } from './loading/loading.component';
 import { CourseCardListComponent } from './course-card-list/course-card-list.component';
 import { LOCALE_ID } from '@angular/core';
+import { LoadingService } from './services/loading.service';
+import { MessagesService } from './services/messages.service';
 
 @NgModule({
     declarations: [
@@ -75,7 +77,9 @@ import { LOCALE_ID } from '@angular/core';
         ReactiveFormsModule
     ],
     providers: [
-        { provide: LOCALE_ID, useValue: 'en-GB' }
+        { provide: LOCALE_ID, useValue: 'en-GB' },
+        LoadingService,
+        MessagesService
     ],
     bootstrap: [AppComponent],
     entryComponents: [CourseDialogComponent]
