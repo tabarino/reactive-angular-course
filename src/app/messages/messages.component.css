@@ -1,19 +1,18 @@
-
 .messages-container {
-  display: flex;
-  color: #a94442;
-  background-color: #f2dede;
-  border: 1px solid #ebccd1;
-  padding: 20px;
-  font-family: Roboto;
-  position: relative;
+    display: flex;
+    color: #a94442;
+    background-color: #f2dede;
+    border: 1px solid #ebccd1;
+    padding: 20px;
+    font-family: Roboto;
+    position: relative;
 }
 
 .close {
-  position: absolute;
-  right: 10px;
-  top:10px;
-  cursor: pointer;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    cursor: pointer;
 }
 
 .message {
