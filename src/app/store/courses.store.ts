@@ -18,6 +18,10 @@ export class CoursesStore {
         private loadingService: LoadingService,
         private messagesService: MessagesService
     ) {
+        this.loadAllCourses();
+    }
+
+    private loadAllCourses() {
         const loadCourses$ = this.coursesService.loadAllCourses().pipe(
             catchError(err => {
                 const errMessage = 'Could not load courses';
@@ -29,6 +33,28 @@ export class CoursesStore {
         );
 
         this.loadingService.showLoaderUntilCompleted(loadCourses$).subscribe();
+    }
+
+    saveCourse(courseId: string, changes: Partial<Course>): Observable<any> {
+        const courses = this.coursesSubject.getValue();
+        const index = courses.findIndex(course => course.id === courseId);
+        const newCourse: Course = {
+            ...courses[index],
+            ...changes
+        };
+        const newCourses: Course[] = courses.slice(0);
+        newCourses[index] = newCourse;
+
+        this.coursesSubject.next(newCourses);
+
+        return this.coursesService.saveCourse(courseId, changes).pipe(
+            catchError(err => {
+                const errMessage = 'Could not save course';
+                this.messagesService.showErrors(errMessage);
+                console.error(errMessage, err);
+                return throwError(err);
+            })
+        );
     }
 
     filterByCategory(category: string): Observable<Course[]> {
